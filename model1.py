@@ -24,7 +24,7 @@ keep=tf.placeholder(tf.float32)
 #change 1:normalize input
 mean,var=tf.nn.moments(x_image,[1,2],keep_dims=True)
 x_image=tf.subtract(x_image,mean)
-x_image=tf.divide(x_image,var)
+x_image=tf.divide(x_image,tf.sqrt(var))
 
 #for change 2
 def block1(x,block_name):
