@@ -128,8 +128,6 @@ y_out=tf.nn.softmax(block_out)
 
 
 cross_en=tf.reduce_mean(-tf.reduce_sum(y*tf.log(y_out),reduction_indices=[1]))
-
-
 tran_step_warm=tf.train.AdamOptimizer(6e-4).minimize(cross_en)
 tran_step=tf.train.AdamOptimizer(4e-5).minimize(cross_en)
 tran_step_sgd=tf.train.GradientDescentOptimizer(4e-6).minimize(cross_en)
@@ -152,10 +150,10 @@ for i in range(steps):
     #multi optimizer
 
     if i<0.2*steps:
-        tran_step_warm.run(feed_dict={x:batch[0],y:batch[1],keep:0.4}
+        tran_step_warm.run(feed_dict={x:batch[0],y:batch[1],keep:0.3}
                       )
     elif i<0.7*steps:
-        tran_step.run(feed_dict={x:batch[0],y:batch[1],keep:0.6}
+        tran_step.run(feed_dict={x:batch[0],y:batch[1],keep:0.5}
                                      )
     else:
         tran_step_sgd.run(feed_dict={x:batch[0],y:batch[1],keep:1.0}
